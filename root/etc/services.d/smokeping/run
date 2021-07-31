@@ -6,8 +6,11 @@ fi
 if [ "x$SHARED_SECRET" == "x" ]; then
     echo "Please define a shared secret in \$SHARED_SECRET env variable. Detected value: $SHARED_SECRET"
 fi
+if [ "x$SLAVE_NAME" == "x" ]; then
+    echo "Please define a shared secret in \$SLAVE_NAME env variable. Detected value: $SLAVE_NAME"
+fi
 
 echo $SHARED_SECRET > /config/smokeping_secrets && \
     chown abc:abc /config/smokeping_secrets && \
     chmod 640 /config/smokeping_secrets
-exec s6-setuidgid abc  /usr/bin/smokeping --config="/etc/smokeping/config" --master-url="$MASTER_URL" --shared-secret=/config/smokeping_secrets  --cache-dir=/tmp --nodaemon
+exec s6-setuidgid abc  /usr/bin/smokeping --config="/etc/smokeping/config" --master-url="$MASTER_URL" --shared-secret=/config/smokeping_secrets --slave-name="$SLAVE_NAME" --cache-dir=/tmp --nodaemon
