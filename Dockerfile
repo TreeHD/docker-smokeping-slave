@@ -1,5 +1,5 @@
 FROM ghcr.io/linuxserver/smokeping
-
+RUN apk add perl-lwp-protocol-https
 LABEL maintainer="Daniel Graziotin <daniel@ineed.coffee>"
 ENV SHARED_SECRET= \
     MASTER_URL= \ 
